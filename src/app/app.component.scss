@@ -1,0 +1,12 @@
+:host {
+  .container>* {
+    margin-bottom: 28px;
+  }
+  mat-radio-group {
+    display: flex;
+    flex-direction: column;
+  }
+  mat-radio-button {
+    margin: 5px;
+  }
+}
