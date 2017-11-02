@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 
 import { MatSliderModule, MatButtonModule, MatCardModule, MatRadioModule } from '@angular/material';
 import { AppComponent } from './app.component';
+import { Mixer } from './mixer';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { AppComponent } from './app.component';
     MatCardModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [Mixer],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
