@@ -16,18 +16,20 @@ export class AppComponent implements OnInit {
     this.onOnValueChange(value);
   }
 
-  gain: number = 0.5;
-
   constructor(private mixer: Mixer) { }
 
   ngOnInit() {
   }
 
   private onOnValueChange(value: boolean) {
-    value ? this.mixer.oscillator.connect(this.mixer.gain) : this.mixer.oscillator.disconnect();
+    value ? this.mixer.start() : this.mixer.stop();
   }
 
   onGainChange(e: MatSliderChange) {
     this.mixer.setGain(e.value);
+  }
+
+  onFrequencyChange(e: MatSliderChange) {
+    this.mixer.setFrequency(e.value);
   }
 }

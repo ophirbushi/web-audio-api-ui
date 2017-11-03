@@ -7,22 +7,42 @@ export class Mixer {
   oscillator: OscillatorNode;
 
   constructor() {
-    this.init();
-  }
-
-  init() {
     this.context = new AudioContext();
-    this.gain = this.context.createGain()
-    this.oscillator = this.context.createOscillator();
 
+    this.gain = this.context.createGain()
     this.gain.gain.value = .5;
+
+    this.oscillator = this.context.createOscillator();
     this.oscillator.type = 'sine';
     this.oscillator.frequency.value = 440;
-    this.gain.connect(this.context.destination);
     this.oscillator.start();
   }
 
   setGain(value: number) {
-    this.gain.gain.setValueAtTime(value, 1);
+    this.gain.gain.value = value;
+  }
+
+  setFrequency(value: number) {
+    this.oscillator.frequency.value = value;
+  }
+
+  start() {
+    this.connectNodes([this.gain, this.oscillator]);
+  }
+
+  stop() {
+    this.disconnectNodes([this.gain, this.oscillator]);
+  }
+
+  private connectNodes(audioNodes: AudioNode[]) {
+    audioNodes.reduce<AudioNode>((prev, cur, index) => {
+      if (prev) cur.connect(prev);
+      else cur.connect(this.context.destination);
+      return cur;
+    }, null);
+  }
+
+  private disconnectNodes(audioNodes: AudioNode[]) {
+    audioNodes.forEach(n => n.disconnect());
   }
 }
