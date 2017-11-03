@@ -5,6 +5,7 @@ export class Mixer {
   context: AudioContext;
   gain: GainNode;
   oscillator: OscillatorNode;
+  biquadFilter: BiquadFilterNode;
 
   constructor() {
     this.context = new AudioContext();
@@ -16,6 +17,8 @@ export class Mixer {
     this.oscillator.type = 'sine';
     this.oscillator.frequency.value = 440;
     this.oscillator.start();
+
+    this.biquadFilter = this.context.createBiquadFilter();
   }
 
   setGain(value: number) {
@@ -31,11 +34,11 @@ export class Mixer {
   }
 
   start() {
-    this.connectNodes([this.gain, this.oscillator]);
+    this.connectNodes([this.gain, this.biquadFilter, this.oscillator]);
   }
 
   stop() {
-    this.disconnectNodes([this.gain, this.oscillator]);
+    this.disconnectNodes([this.gain, this.biquadFilter, this.oscillator]);
   }
 
   private connectNodes(audioNodes: AudioNode[]) {
