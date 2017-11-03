@@ -9,6 +9,8 @@ import { Mixer } from './mixer';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  oscillatorTypes: OscillatorType[] = ['sine', 'sawtooth', 'square', 'triangle']; //'custom'
+
   private _on = false;
   get on() { return this._on; }
   set on(value: boolean) {
@@ -31,5 +33,9 @@ export class AppComponent implements OnInit {
 
   onFrequencyChange(e: MatSliderChange) {
     this.mixer.setFrequency(e.value);
+  }
+
+  onOscillatorTypeChange(type: OscillatorType) {
+    this.mixer.setOscillatorType(type);
   }
 }

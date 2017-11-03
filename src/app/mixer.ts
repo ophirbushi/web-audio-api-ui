@@ -10,7 +10,7 @@ export class Mixer {
     this.context = new AudioContext();
 
     this.gain = this.context.createGain()
-    this.gain.gain.value = .5;
+    this.gain.gain.value = 1;
 
     this.oscillator = this.context.createOscillator();
     this.oscillator.type = 'sine';
@@ -24,6 +24,10 @@ export class Mixer {
 
   setFrequency(value: number) {
     this.oscillator.frequency.value = value;
+  }
+
+  setOscillatorType(type: OscillatorType) {
+    this.oscillator.type = type;
   }
 
   start() {

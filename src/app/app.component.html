@@ -15,17 +15,20 @@
         <mat-card-title>Frequency</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <mat-slider color="primary" vertical [max]="500" [min]="80" [step]="1" [value]="440" (input)="onFrequencyChange($event)" [thumb-label]="true"></mat-slider>
+        <mat-slider color="primary" vertical [max]="650" [min]="50" [step]="1" [value]="440" (input)="onFrequencyChange($event)"
+          [thumb-label]="true"></mat-slider>
       </mat-card-content>
     </mat-card>
   </div>
   <div class="col-3-12">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Gain</mat-card-title>
+        <mat-card-title>Type</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <mat-slider color="primary" vertical [max]="100" [min]="1" [step]="5" [value]="15" [thumb-label]="true"></mat-slider>
+        <mat-radio-group ngModel="sine" (ngModelChange)="onOscillatorTypeChange($event)">
+          <mat-radio-button *ngFor="let type of oscillatorTypes" [value]="type">{{ type }}</mat-radio-button>
+        </mat-radio-group>
       </mat-card-content>
     </mat-card>
   </div>
