@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   constructor(private mixer: Mixer) { }
 
   ngOnInit() {
+
   }
 
   private onOnValueChange(value: boolean) {
