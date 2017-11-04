@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSliderChange } from "@angular/material";
+import { MatSliderChange, MatSlideToggleChange } from "@angular/material";
 
 import { Mixer } from './mixer';
 
@@ -10,6 +10,7 @@ import { Mixer } from './mixer';
 })
 export class AppComponent implements OnInit {
   oscillatorTypes: OscillatorType[] = ['sine', 'sawtooth', 'square', 'triangle']; //'custom'
+  biquadFilterTypes: BiquadFilterType[] = ['allpass', 'bandpass', 'highpass', 'highshelf', 'lowpass', 'lowshelf', 'notch', 'peaking'];
 
   private _on = false;
   get on() { return this._on; }
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   constructor(private mixer: Mixer) { }
 
   ngOnInit() {
-
+    this.mixer.biquadFilter.frequency;
   }
 
   private onOnValueChange(value: boolean) {
@@ -29,14 +30,34 @@ export class AppComponent implements OnInit {
   }
 
   onGainChange(e: MatSliderChange) {
-    this.mixer.setGain(e.value);
+    this.mixer.gain.gain.value = e.value;
   }
 
   onFrequencyChange(e: MatSliderChange) {
-    this.mixer.setFrequency(e.value);
+    this.mixer.oscillator.frequency.value = e.value;
   }
 
   onOscillatorTypeChange(type: OscillatorType) {
-    this.mixer.setOscillatorType(type);
+    this.mixer.oscillator.type = type;
+  }
+
+  onBiquadFilterToggle(e: MatSlideToggleChange) {
+    if (e.checked) {
+      this.mixer.oscillator.disconnect();
+      this.mixer.biquadFilter.connect(this.mixer.gain);
+      this.mixer.oscillator.connect(this.mixer.biquadFilter);
+    } else {
+      this.mixer.oscillator.disconnect();
+      this.mixer.biquadFilter.disconnect();
+      this.mixer.oscillator.connect(this.mixer.gain);
+    }
+  }
+
+  onBiquadFilterFrequencyChange(e: MatSliderChange) {
+    this.mixer.biquadFilter.frequency.value = e.value;
+  }
+
+  onBiquadFilterTypeChange(type: BiquadFilterType) {
+    this.mixer.biquadFilter.type = type;
   }
 }

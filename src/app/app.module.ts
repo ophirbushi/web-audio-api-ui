@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 
-import { MatSliderModule, MatButtonModule, MatCardModule, MatRadioModule } from '@angular/material';
+import { MatSliderModule, MatButtonModule, MatCardModule, MatRadioModule, MatSlideToggleModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { Mixer } from './mixer';
 
@@ -22,7 +22,8 @@ import { Mixer } from './mixer';
     MatSliderModule,
     MatButtonModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   providers: [Mixer],
   bootstrap: [AppComponent]

@@ -19,26 +19,15 @@ export class Mixer {
     this.oscillator.start();
 
     this.biquadFilter = this.context.createBiquadFilter();
-  }
-
-  setGain(value: number) {
-    this.gain.gain.value = value;
-  }
-
-  setFrequency(value: number) {
-    this.oscillator.frequency.value = value;
-  }
-
-  setOscillatorType(type: OscillatorType) {
-    this.oscillator.type = type;
+    this.biquadFilter.type = 'allpass';
   }
 
   start() {
-    this.connectNodes([this.gain, this.biquadFilter, this.oscillator]);
+    this.connectNodes([this.gain, this.oscillator]);
   }
 
   stop() {
-    this.disconnectNodes([this.gain, this.biquadFilter, this.oscillator]);
+    this.disconnectNodes([this.gain, this.oscillator]);
   }
 
   private connectNodes(audioNodes: AudioNode[]) {
