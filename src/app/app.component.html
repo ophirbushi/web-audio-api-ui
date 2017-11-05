@@ -39,12 +39,18 @@
       </mat-card-header>
       <mat-card-content>
         <mat-slide-toggle (change)="onBiquadFilterToggle($event)"></mat-slide-toggle>
+        <h2 style="font-size: 14px">Frequency</h2>
+
         <mat-slider color="primary" vertical [max]="2000" [min]="1" [step]="1" [value]="440" (input)="onBiquadFilterFrequencyChange($event)"
           [thumb-label]="true"></mat-slider>
+        <h2 style="font-size: 14px">Type</h2>
         <mat-radio-group ngModel="allpass" (ngModelChange)="onBiquadFilterTypeChange($event)">
           <mat-radio-button *ngFor="let type of biquadFilterTypes" [value]="type">{{ type }}</mat-radio-button>
         </mat-radio-group>
       </mat-card-content>
+      <h2 style="font-size: 14px">Detune</h2>
+      <mat-slider color="primary" vertical [max]="3800" [min]="1" [step]="1" [value]="1" (input)="onBiquadFilterDetuneChange($event)"
+        [thumb-label]="true"></mat-slider>
     </mat-card>
   </div>
   <div class="col-12-12">
