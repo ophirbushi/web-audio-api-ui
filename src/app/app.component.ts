@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSliderChange, MatSlideToggleChange } from "@angular/material";
+import { MatSliderChange, MatSlideToggleChange } from '@angular/material';
+import { HttpClient } from "@angular/common/http";
 
-import { Mixer } from './mixer';
+
+import * as Tone from "tone";
+
+function concatTypedArrays(a, b) { // a, b TypedArray of same type
+  var c = new (a.constructor)(a.length + b.length);
+  c.set(a, 0);
+  c.set(b, a.length);
+  return c;
+}
 
 @Component({
   selector: 'app-root',
@@ -9,55 +18,42 @@ import { Mixer } from './mixer';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  oscillatorTypes: OscillatorType[] = ['sine', 'sawtooth', 'square', 'triangle']; //'custom'
-  biquadFilterTypes: BiquadFilterType[] = ['allpass', 'bandpass', 'highpass', 'highshelf', 'lowpass', 'lowshelf', 'notch', 'peaking'];
 
-  private _on = false;
-  get on() { return this._on; }
-  set on(value: boolean) {
-    this._on = value;
-    this.onOnValueChange(value);
+  constructor(private httpClient: HttpClient) { }
+
+  async  ngOnInit() {
+    var audioCtx = new AudioContext();
+    var source = audioCtx.createBufferSource();
+
+    const data = await this.httpClient.get('/assets/file.wav', { responseType: 'arraybuffer' }).toPromise()
+
+    const grains = [];
+    const grainSize = 500000;
+
+    var a = Tone.GrainPlayer;
+    debugger;
+    // for (let i = 0; i < 100; i++) {
+    //   grains.push(data.slice(i, i + grainSize));
+    // }
+
+    // let intArray;
+    // const c = grains.reduce((acc, current) => {
+    //   intArray = new Int16Array(current);
+    //   return concatTypedArrays(acc, intArray);
+    // }, new Int16Array(0));
+
+    const decoded = await audioCtx.decodeAudioData(data)
+    source.buffer = decoded;
+
+    source.loop = true;
+
+    // source.connect(analyser);
+    source.connect(audioCtx.destination);
+    // biquadFilter.connect(convolver);
+    // convolver.connect(gainNode);
+    // gainNode.connect(audioCtx.destination);
+    source.start(0);
+
   }
 
-  constructor(private mixer: Mixer) { }
-
-  ngOnInit() {
-    this.mixer.biquadFilter.frequency;
-  }
-
-  private onOnValueChange(value: boolean) {
-    value ? this.mixer.start() : this.mixer.stop();
-  }
-
-  onGainChange(e: MatSliderChange) {
-    this.mixer.gain.gain.value = e.value;
-  }
-
-  onFrequencyChange(e: MatSliderChange) {
-    this.mixer.oscillator.frequency.value = e.value;
-  }
-
-  onOscillatorTypeChange(type: OscillatorType) {
-    this.mixer.oscillator.type = type;
-  }
-
-  onBiquadFilterToggle(e: MatSlideToggleChange) {
-    if (e.checked) {
-      this.mixer.oscillator.disconnect();
-      this.mixer.biquadFilter.connect(this.mixer.gain);
-      this.mixer.oscillator.connect(this.mixer.biquadFilter);
-    } else {
-      this.mixer.oscillator.disconnect();
-      this.mixer.biquadFilter.disconnect();
-      this.mixer.oscillator.connect(this.mixer.gain);
-    }
-  }
-
-  onBiquadFilterFrequencyChange(e: MatSliderChange) {
-    this.mixer.biquadFilter.frequency.value = e.value;
-  }
-
-  onBiquadFilterTypeChange(type: BiquadFilterType) {
-    this.mixer.biquadFilter.type = type;
-  }
 }
