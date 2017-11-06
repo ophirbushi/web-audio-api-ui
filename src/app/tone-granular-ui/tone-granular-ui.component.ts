@@ -21,7 +21,6 @@ export class ToneGranularUiComponent implements OnInit {
   }
 
   private onAudioLoaded() {
-    debugger;
     this.ready = true;
     this.changeDetector.detectChanges();
   }
