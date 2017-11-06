@@ -1,0 +1,10 @@
+:host {
+  &>* {
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px;
+  }
+  div {
+    font-size: 20px;
+  }
+}

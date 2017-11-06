@@ -1,0 +1,27 @@
+<!-- grain size 1.7 overlap 0.225 detune -3000 playbackRate 3 -->
+<div>
+  <div>Grain Size</div>
+  <mat-slider vertical [ngModel]="player.grainSize" (input)="player.grainSize = $event.value;" [max]="3" [min]="0.01" [step]="0.01"
+    [thumb-label]="true"></mat-slider>
+</div>
+<div>
+  <div>Overlap</div>
+  <mat-slider vertical [ngModel]="player.overlap" (input)="player.overlap = $event.value;" [max]="1" [min]="0" [step]="0.005"
+    [thumb-label]="true"></mat-slider>
+</div>
+<div>
+  <div>Detune</div>
+  <mat-slider vertical [ngModel]="player.detune" (input)="player.detune = $event.value;" [max]="5000" [min]="-5000" [step]="1"
+    [thumb-label]="true"></mat-slider>
+</div>
+
+<div>
+  <div>Playback Rate</div>
+  <mat-slider vertical [ngModel]="player.playbackRate" (input)="player.playbackRate = $event.value;" [max]="4" [min]="0.01" [step]="0.01"
+    [thumb-label]="true"></mat-slider>
+</div>
+
+
+<button mat-button mat-raised-button color="accent" [disabled]="!ready" (click)="player.start()">Start</button>
+<button mat-button mat-raised-button color="primary" [disabled]="!ready" (click)="player.stop()">Stop</button>
+<mat-slide-toggle [(ngModel)]="player.loop">Loop</mat-slide-toggle>
