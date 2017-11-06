@@ -10,15 +10,18 @@ import * as Tone from "tone";
 })
 export class ToneGranularUiComponent implements OnInit {
   ready = false;
+  filter;
   player;
 
   constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.player = new Tone.GrainPlayer('/assets/chimes.mp3', this.onAudioLoaded.bind(this)).toMaster();
+    this.filter = new Tone.Filter().toMaster();
+    this.player = new Tone.GrainPlayer('/assets/chimes.mp3', this.onAudioLoaded.bind(this)).connect(this.filter);
   }
 
   private onAudioLoaded() {
+    debugger;
     this.ready = true;
     this.changeDetector.detectChanges();
   }
