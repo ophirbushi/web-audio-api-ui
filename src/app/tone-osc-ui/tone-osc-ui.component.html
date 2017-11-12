@@ -1,0 +1,22 @@
+<button mat-button mat-raised-button color="accent" (click)="osc.start()">Start</button>
+<button mat-button mat-raised-button color="primary" (click)="osc.stop()">Stop</button>
+<div>
+  <div>modulationFrequency</div>
+  <mat-slider vertical [ngModel]="osc.modulationFrequency.value" (input)="osc.modulationFrequency.value = $event.value;" [max]="2000" [min]="-2000" [step]="1"
+    [thumb-label]="true"></mat-slider>
+</div>
+<div>
+  <div>detune</div>
+  <mat-slider vertical [ngModel]="osc.detune.value" (input)="osc.detune.value = $event.value;" [max]="2000" [min]="0" [step]="1"
+    [thumb-label]="true"></mat-slider>
+</div>
+<div>
+  <div>frequency</div>
+  <mat-slider vertical [ngModel]="osc.frequency.value" (input)="osc.frequency.value = $event.value;" [max]="2000" [min]="40" [step]="1"
+    [thumb-label]="true"></mat-slider>
+</div>
+<div>
+  <div>volume</div>
+  <mat-slider vertical [ngModel]="osc.volume.value" (input)="osc.volume.value = $event.value;" [max]="70" [min]="-70" [step]="1"
+    [thumb-label]="true"></mat-slider>
+</div>

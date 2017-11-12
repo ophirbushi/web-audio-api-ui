@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   onBiquadFilterDetuneChange(e: MatSliderChange) {
-    this.mixer.biquadFilter.detune.value = e.value;
-    console.log(this.mixer.biquadFilter.detune.value);
+    // this.mixer.biquadFilter.detune.value = e.value;
+    // console.log(this.mixer.biquadFilter.detune.value);
   }
 }

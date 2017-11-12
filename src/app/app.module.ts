@@ -10,11 +10,13 @@ import { MatSliderModule, MatButtonModule, MatCardModule, MatRadioModule, MatSli
 import { AppComponent } from './app.component';
 import { Mixer } from './mixer';
 import { ToneGranularUiComponent } from './tone-granular-ui/tone-granular-ui.component';
+import { ToneOscUiComponent } from './tone-osc-ui/tone-osc-ui.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToneGranularUiComponent
+    ToneGranularUiComponent,
+    ToneOscUiComponent
   ],
   imports: [
     BrowserModule,

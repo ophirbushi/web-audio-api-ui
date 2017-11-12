@@ -2,7 +2,6 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 
 import * as Tone from "tone";
 
-
 @Component({
   selector: 'wap-tone-granular-ui',
   templateUrl: './tone-granular-ui.component.html',
@@ -16,8 +15,10 @@ export class ToneGranularUiComponent implements OnInit {
   constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.filter = new Tone.Filter().toMaster();
-    this.player = new Tone.GrainPlayer('/assets/chimes.mp3', this.onAudioLoaded.bind(this)).connect(this.filter);
+    //this.filter = new Tone.Filter().toMaster();
+    this.player = new Tone.GrainPlayer('/assets/chimes.mp3', this.onAudioLoaded.bind(this)).toMaster();// .connect(this.filter);
+    this.player.overlap = 0;
+    this.player.grainSize = 1;
   }
 
   private onAudioLoaded() {
