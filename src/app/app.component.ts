@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
     // player.start();
   }
 
-  onBiquadFilterDetuneChange(e: MatSliderChange) {
-    this.mixer.biquadFilter.detune.value = e.value;
-    console.log(this.mixer.biquadFilter.detune.value);
-  }
+  // onBiquadFilterDetuneChange(e: MatSliderChange) {
+  //   this.mixer.biquadFilter.detune.value = e.value;
+  //   console.log(this.mixer.biquadFilter.detune.value);
+  // }
 }
