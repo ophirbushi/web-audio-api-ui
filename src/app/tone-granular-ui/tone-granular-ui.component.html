@@ -17,7 +17,7 @@
 
 <div>
   <div>Playback Rate</div>
-  <mat-slider vertical [ngModel]="player.playbackRate" (input)="player.playbackRate = $event.value;" [max]="4" [min]="0.01" [step]="0.01"
+  <mat-slider vertical [ngModel]="player.playbackRate" (input)="player.playbackRate = $event.value;" [max]="4" [min]="0.01" [step]="0.05"
     [thumb-label]="true"></mat-slider>
 </div>
 
