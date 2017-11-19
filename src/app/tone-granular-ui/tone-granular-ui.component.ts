@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 
 import * as Tone from "tone";
 
@@ -12,13 +12,16 @@ export class ToneGranularUiComponent implements OnInit {
   filter;
   player;
 
+  @Input() url: string;
+  @Input() title: string;
+
   constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.filter = new Tone.Filter().toMaster();
-    this.player = new Tone.GrainPlayer('/assets/chimes.mp3', this.onAudioLoaded.bind(this)).connect(this.filter);
+    this.player = new Tone.GrainPlayer(this.url, this.onAudioLoaded.bind(this)).connect(this.filter);
     this.player.overlap = 0;
-    this.player.grainSize = 1;
+    this.player.grainSize = 0.75;
   }
 
   private onAudioLoaded() {
