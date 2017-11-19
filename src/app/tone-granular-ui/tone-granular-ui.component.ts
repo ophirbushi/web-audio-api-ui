@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import * as Tone from "tone";
 
 @Component({
   selector: 'wap-tone-granular-ui',
   templateUrl: './tone-granular-ui.component.html',
-  styleUrls: ['./tone-granular-ui.component.scss']
+  styleUrls: ['./tone-granular-ui.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToneGranularUiComponent implements OnInit {
   ready = false;
@@ -26,6 +27,7 @@ export class ToneGranularUiComponent implements OnInit {
 
   private onAudioLoaded() {
     this.ready = true;
+    this.changeDetector.markForCheck();
     this.changeDetector.detectChanges();
   }
 }

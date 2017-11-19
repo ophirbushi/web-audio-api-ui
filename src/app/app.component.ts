@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { MatSliderChange, MatSlideToggleChange } from '@angular/material';
 import { HttpClient } from "@angular/common/http";
 
@@ -12,7 +12,9 @@ import { promisify } from "./promisify";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private app: ApplicationRef) {
+    this.app.tick = this.app.tick.bind(this.app, console.count('tick'));
+  }
 
   async ngOnInit() {
     // const player = await promisify(Tone.GrainPlayer, '/assets/file.wav');
